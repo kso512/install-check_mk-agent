@@ -99,6 +99,12 @@ if [ "$test_idempotence" = true ]; then
     || (printf ${red}'Idempotence test: fail'${neutral}"\n" && exit 1)
 fi
 
+# Test installation of client.
+printf ${green}"Checking client installation."${neutral}"\n"
+docker exec --tty $container_id env TERM=xterm sudo -u cmkagent sudo /home/cmkagent/check_mk_agent \
+  | grep '\<\<\<check_mk\>\>\>' \
+  && (printf ${green}'Client installation test: pass'${neutral}"\n") \
+  || (printf ${red}'Client installation test: fail'${neutral}"\n" && exit 1)
 
 # Remove the Docker container (if configured).
 if [ "$cleanup" = true ]; then
