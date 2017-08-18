@@ -1,2 +1,31 @@
 ---
 # defaults file for ansible-install-check_mk-client
+
+ansible_install_check_mk_client_prereqs:
+  - sudo 
+
+ansible_install_check_mk_client_user: cmkagent
+ansible_install_check_mk_client_home: "/home/{{ ansible_install_check_mk_client_user }}"
+
+ansible_install_check_mk_client_count_users_warn: 10
+ansible_install_check_mk_client_count_users_crit: 15
+
+ansible_install_check_mk_client_count_zombie_procs_warn: 5
+ansible_install_check_mk_client_count_zombie_procs_crit: 10
+
+ansible_install_check_mk_client_local_checks:
+  - count_users
+  - count_zombie_procs
+
+ansible_install_check_mk_client_plugins:
+  - mk_inventory
+  - lvm
+  - smart
+
+ansible_install_check_mk_client_win_tmp: c:\check_mk_agent.msi
+ansible_install_check_mk_client_win_filename: check_mk_agent.msi
+ansible_install_check_mk_client_win_config: check_mk.ini.j2
+ansible_install_check_mk_client_win_folder: C:\Program Files (x86)\check_mk\
+ansible_install_check_mk_client_win_plugins:
+  - mk_inventory.vbs
+

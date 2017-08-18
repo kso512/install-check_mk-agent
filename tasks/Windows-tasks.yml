@@ -1,0 +1,41 @@
+---
+# tasks file for ansible-install-check_mk-client (Windows only)
+
+- name: Copy agent installation file
+  win_copy:
+    dest: "{{ ansible_install_check_mk_client_win_tmp }}"
+    src: "{{ ansible_install_check_mk_client_win_filename }}"
+  register: copy_agent
+  tags:
+    - ansible-install-check-mk-client
+    - files
+
+- name: Install agent
+  win_msi:
+    path: "{{ ansible_install_check_mk_client_win_tmp }}"
+    state: present
+    wait: True
+  when: copy_agent.changed
+  tags:
+    - ansible-install-check-mk-client
+    - files
+
+- name: Generate configuration file from template
+  win_template: 
+    src: "{{ ansible_install_check_mk_client_win_config }}"
+    dest: "{{ ansible_install_check_mk_client_win_folder }}check_mk.ini"
+  notify: Restart Windows agent service
+  tags:
+    - ansible-install-check-mk-client
+    - files
+
+- name: Generate plugins
+  win_template: 
+    src: "{{ item }}.j2"
+    dest: "{{ ansible_install_check_mk_client_win_folder }}plugins\\{{ item }}"
+  with_items: "{{ ansible_install_check_mk_client_win_plugins }}"
+  notify: Restart Windows agent service
+  tags:
+    - ansible-install-check-mk-client
+    - files
+

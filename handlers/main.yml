@@ -1,2 +1,11 @@
 ---
 # handlers file for ansible-install-check_mk-client
+
+- name: Restart Windows agent service
+  win_service:
+    name: Check_MK_Agent
+    state: restarted
+  tags:
+    - ansible-install-check-mk-client
+    - files
+

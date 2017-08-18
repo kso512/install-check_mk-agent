@@ -1,0 +1,7 @@
+#!/bin/bash
+# {{ ansible_managed }}
+echo "<<<lvm_vgs>>>"
+vgs --units b --nosuffix --noheadings --separator '     '
+
+echo "<<<lvm_pvs>>>"
+pvs --units b --nosuffix --noheadings --separator '    '
