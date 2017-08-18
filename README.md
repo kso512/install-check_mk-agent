@@ -14,6 +14,10 @@ Tested with [Travis continuous integration](https://travis-ci.org/) on the follo
 - [Ubuntu 14.04 LTS "Trusty Tahr"](http://releases.ubuntu.com/trusty/)
 - [Ubuntu 16.04 LTS "Xenial Xerus"](http://releases.ubuntu.com/xenial/)
 
+The following operating systems are also supported and tested manually:
+
+- [Microsoft Windows](https://www.microsoft.com/en-us/windows/)
+
 ## Requirements
 
 If the server is Windows and has a firewall enabled, it may need to be altered to allow incoming packets on TCP port 6556.
