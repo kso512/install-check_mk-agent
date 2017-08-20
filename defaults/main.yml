@@ -23,6 +23,7 @@ ansible_install_check_mk_client_plugins:
   - lvm
   - smart
 
+ansible_install_check_mk_client_freebsd_plugins: []
 ansible_install_check_mk_client_win_tmp: c:\check_mk_agent.msi
 ansible_install_check_mk_client_win_filename: check_mk_agent.msi
 ansible_install_check_mk_client_win_config: check_mk.ini.j2
