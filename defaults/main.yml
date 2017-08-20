@@ -1,6 +1,7 @@
 ---
 # defaults file for ansible-install-check_mk-client
 
+ansible_install_check_mk_client_authorized_keys: authorized_keys.j2
 ansible_install_check_mk_client_prereqs:
   - sudo 
 
