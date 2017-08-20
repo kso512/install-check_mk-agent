@@ -18,6 +18,7 @@ Tested with [Travis continuous integration](https://travis-ci.org/) on the follo
 
 The following operating systems are also supported and tested manually:
 
+- [FreeBSD 10.3](https://www.freebsd.org/releases/10.3R/relnotes.html)
 - [FreeBSD 11.0](https://www.freebsd.org/releases/11.0R/relnotes.html)
 - [Microsoft Windows](https://www.microsoft.com/en-us/windows/)
 
