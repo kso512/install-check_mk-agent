@@ -70,7 +70,7 @@
     owner: "{{ ansible_install_check_mk_client_user }}" 
     group: "{{ ansible_install_check_mk_client_user }}" 
     mode: 0600
-    src: authorized_keys.j2
+    src: "{{ ansible_install_check_mk_client_authorized_keys }}"
     dest: "{{ ansible_install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
     - ansible-install-check-mk-client
