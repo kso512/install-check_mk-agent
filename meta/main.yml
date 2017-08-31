@@ -20,6 +20,9 @@ galaxy_info:
       versions:
         - 10.3
         - 11.0
+    - name: opensuse
+      versions:
+        - 13.2
     - name: Ubuntu
       versions:
         - precise
@@ -47,5 +50,6 @@ galaxy_info:
     - monitoring
     - microsoft
     - windows
+    - opensuse
 
 dependencies: []
