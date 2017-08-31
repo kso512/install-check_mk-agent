@@ -244,7 +244,7 @@ function run_real_time_checks()
 }
 
 echo '<<<check_mk>>>'
-echo Version: 1.4.0p9
+echo Version: 1.4.0p10
 echo AgentOS: linux
 echo Hostname: $HOSTNAME
 echo AgentDirectory: $MK_CONFDIR
@@ -300,29 +300,33 @@ then
     sed -n '/ nfs4\? /s/[^ ]* \([^ ]*\) .*/\1/p' < /proc/mounts |
         sed 's/\\040/ /g' |
         while read MP
-        do
-         if [ $STAT_VERSION != $STAT_BROKE ]; then
-            waitmax -s 9 2 stat -f -c "$MP ok %b %f %a %s" "$MP" || \
-                echo "$MP hanging 0 0 0 0"
-         else
-            waitmax -s 9 2 stat -f -c "$MP ok %b %f %a %s" "$MP" && \
-            printf '\n'|| echo "$MP hanging 0 0 0 0"
-         fi
-        done
+	do
+        if [ ! -r $MP ]; then
+            echo "$MP Permission denied"
+	    elif [ $STAT_VERSION != $STAT_BROKE ]; then
+	        waitmax -s 9 2 stat -f -c "$MP ok %b %f %a %s" "$MP" || \
+	        echo "$MP hanging 0 0 0 0"
+	    else
+	        waitmax -s 9 2 stat -f -c "$MP ok %b %f %a %s" "$MP" && \
+	            printf '\n'|| echo "$MP hanging 0 0 0 0"
+	    fi
+	done
 
     echo '<<<cifsmounts>>>'
     sed -n '/ cifs\? /s/[^ ]* \([^ ]*\) .*/\1/p' < /proc/mounts |
         sed 's/\\040/ /g' |
         while read MP
-        do
-         if [ $STAT_VERSION != $STAT_BROKE ]; then
+    do
+        if [ ! -r $MP ]; then
+            echo "$MP Permission denied"
+        elif [ $STAT_VERSION != $STAT_BROKE ]; then
             waitmax -s 9 2 stat -f -c "$MP ok %b %f %a %s" "$MP" || \
                 echo "$MP hanging 0 0 0 0"
-         else
+        else
             waitmax -s 9 2 stat -f -c "$MP ok %b %f %a %s" "$MP" && \
-            printf '\n'|| echo "$MP hanging 0 0 0 0"
-         fi
-        done
+                printf '\n'|| echo "$MP hanging 0 0 0 0"
+        fi
+    done
 fi
 
 # Check mount options. Filesystems may switch to 'ro' in case
@@ -728,20 +732,20 @@ then
     run_cached -s omd_status 60 "omd status --bare --auto || true"
     echo '<<<mknotifyd:sep(0)>>>'
     for statefile in /omd/sites/*/var/log/mknotifyd.state ; do
-    if [ -e "$statefile" ] ; then
-        site=${statefile%/var/log*}
-        site=${site#/omd/sites/}
-        echo "[$site]"
-        grep -v '^#' < $statefile
+	if [ -e "$statefile" ] ; then
+	    site=${statefile%/var/log*}
+	    site=${site#/omd/sites/}
+	    echo "[$site]"
+	    grep -v '^#' < $statefile
         fi
     done
 
     echo '<<<omd_apache:sep(124)>>>'
     for statsfile in /omd/sites/*/var/log/apache/stats; do
-    if [ -e "$statsfile" ] ; then
-        site=${statsfile%/var/log*}
-        site=${site#/omd/sites/}
-        echo "[$site]"
+	if [ -e "$statsfile" ] ; then
+	    site=${statsfile%/var/log*}
+	    site=${site#/omd/sites/}
+	    echo "[$site]"
             cat $statsfile
             > $statsfile
             # prevent next section to fail caused by a missing newline at the end of the statsfile
