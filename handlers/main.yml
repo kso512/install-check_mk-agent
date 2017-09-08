@@ -6,6 +6,6 @@
     name: Check_MK_Agent
     state: restarted
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 

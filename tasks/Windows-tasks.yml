@@ -7,7 +7,7 @@
     src: "{{ ansible_install_check_mk_client_win_filename }}"
   register: copy_agent
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Install agent
@@ -17,7 +17,7 @@
     wait: True
   when: copy_agent.changed
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Generate configuration file from template
@@ -26,7 +26,7 @@
     dest: "{{ ansible_install_check_mk_client_win_folder }}check_mk.ini"
   notify: Restart Windows agent service
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Generate plugins
@@ -36,6 +36,6 @@
   with_items: "{{ ansible_install_check_mk_client_win_plugins }}"
   notify: Restart Windows agent service
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 

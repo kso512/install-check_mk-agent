@@ -6,7 +6,7 @@
     name: "{{ ansible_install_check_mk_client_user }}" 
     state: present
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - users
 
 - name: Create monitoring user
@@ -16,7 +16,7 @@
     home: "{{ ansible_install_check_mk_client_home }}"
     comment: "Check_MK Agent"
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - users
 
 - name: Copy check_mk_agent and set executable
@@ -27,7 +27,7 @@
     src: check_mk_agent.freebsd.j2
     dest: "{{ ansible_install_check_mk_client_home }}/check_mk_agent"
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Grant sudo for check_mk_agent to monitoring user
@@ -39,7 +39,7 @@
     dest: /usr/local/etc/sudoers.d/99_cmkagent
     validate: 'visudo -cf %s'
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
     - users
 
@@ -51,7 +51,7 @@
     path: "{{ ansible_install_check_mk_client_home }}/.ssh"
     state: directory
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
     - users
 
@@ -63,7 +63,7 @@
     src: "{{ ansible_install_check_mk_client_authorized_keys }}"
     dest: "{{ ansible_install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
     - users
 
@@ -75,7 +75,7 @@
     path: "{{ ansible_install_check_mk_client_home }}/local"
     state: directory
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Generate local checks
@@ -87,7 +87,7 @@
     dest: "{{ ansible_install_check_mk_client_home }}/local/{{ item }}"
   with_items: "{{ ansible_install_check_mk_client_local_checks }}"
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Create directory - plugins
@@ -98,7 +98,7 @@
     path: "{{ ansible_install_check_mk_client_home }}/plugins"
     state: directory
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Generate plugins
@@ -110,7 +110,7 @@
     dest: "{{ ansible_install_check_mk_client_home }}/plugins/{{ item }}"
   with_items: "{{ ansible_install_check_mk_client_freebsd_plugins }}"
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Create directory - spool
@@ -121,7 +121,7 @@
     path: "{{ ansible_install_check_mk_client_home }}/spool"
     state: directory
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
 - name: Create directory - cache
@@ -132,6 +132,6 @@
     path: "{{ ansible_install_check_mk_client_home }}/cache"
     state: directory
   tags:
-    - ansible-install-check-mk-client
+    - install-check-mk-client
     - files
 
