@@ -3,7 +3,7 @@
 
 - name: Create monitoring group
   group: 
-    name: "{{ ansible_install_check_mk_client_user }}" 
+    name: "{{ install_check_mk_client_user }}" 
     state: present
   tags:
     - install-check-mk-client
@@ -11,9 +11,9 @@
 
 - name: Create monitoring user
   user: 
-    name: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
-    home: "{{ ansible_install_check_mk_client_home }}"
+    name: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
+    home: "{{ install_check_mk_client_home }}"
     comment: "Check_MK Agent"
   tags:
     - install-check-mk-client
@@ -21,11 +21,11 @@
 
 - name: Copy Linux check_mk_agent and set executable
   template: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0755
     src: check_mk_agent.linux.j2
-    dest: "{{ ansible_install_check_mk_client_home }}/check_mk_agent"
+    dest: "{{ install_check_mk_client_home }}/check_mk_agent"
   when: ansible_system.find( 'Linux' ) == 0
   tags:
     - install-check-mk-client
@@ -46,10 +46,10 @@
 
 - name: Create directory - .ssh
   file: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0700
-    path: "{{ ansible_install_check_mk_client_home }}/.ssh"
+    path: "{{ install_check_mk_client_home }}/.ssh"
     state: directory
   tags:
     - install-check-mk-client
@@ -58,11 +58,11 @@
 
 - name: Copy public key to .ssh/authorized_keys
   template: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0600
     src: authorized_keys.j2
-    dest: "{{ ansible_install_check_mk_client_home }}/.ssh/authorized_keys"
+    dest: "{{ install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
     - install-check-mk-client
     - files
@@ -70,10 +70,10 @@
 
 - name: Create directory - local
   file: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0700
-    path: "{{ ansible_install_check_mk_client_home }}/local"
+    path: "{{ install_check_mk_client_home }}/local"
     state: directory
   tags:
     - install-check-mk-client
@@ -81,22 +81,22 @@
 
 - name: Generate local checks
   template: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0700
     src: "{{ item }}.j2"
-    dest: "{{ ansible_install_check_mk_client_home }}/local/{{ item }}"
-  with_items: "{{ ansible_install_check_mk_client_local_checks }}"
+    dest: "{{ install_check_mk_client_home }}/local/{{ item }}"
+  with_items: "{{ install_check_mk_client_local_checks }}"
   tags:
     - install-check-mk-client
     - files
 
 - name: Create directory - plugins
   file: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0700
-    path: "{{ ansible_install_check_mk_client_home }}/plugins"
+    path: "{{ install_check_mk_client_home }}/plugins"
     state: directory
   tags:
     - install-check-mk-client
@@ -104,22 +104,22 @@
 
 - name: Generate plugins
   template: 
-    owner: "{{ ansible_install_check_mk_client_user }}"
-    group: "{{ ansible_install_check_mk_client_user }}"
+    owner: "{{ install_check_mk_client_user }}"
+    group: "{{ install_check_mk_client_user }}"
     mode: 0700
     src: "{{ item }}.j2"
-    dest: "{{ ansible_install_check_mk_client_home }}/plugins/{{ item }}"
-  with_items: "{{ ansible_install_check_mk_client_plugins }}"
+    dest: "{{ install_check_mk_client_home }}/plugins/{{ item }}"
+  with_items: "{{ install_check_mk_client_plugins }}"
   tags:
     - install-check-mk-client
     - files
 
 - name: Create directory - spool
   file: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0700
-    path: "{{ ansible_install_check_mk_client_home }}/spool"
+    path: "{{ install_check_mk_client_home }}/spool"
     state: directory
   tags:
     - install-check-mk-client
@@ -127,10 +127,10 @@
 
 - name: Create directory - cache
   file: 
-    owner: "{{ ansible_install_check_mk_client_user }}" 
-    group: "{{ ansible_install_check_mk_client_user }}" 
+    owner: "{{ install_check_mk_client_user }}" 
+    group: "{{ install_check_mk_client_user }}" 
     mode: 0700
-    path: "{{ ansible_install_check_mk_client_home }}/cache"
+    path: "{{ install_check_mk_client_home }}/cache"
     state: directory
   tags:
     - install-check-mk-client

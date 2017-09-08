@@ -33,21 +33,21 @@ If the server is Windows and has a firewall enabled, it may need to be altered t
 
 | Variable | Description | Value |
 | -------- | ----------- | ----- |
-| ansible_install_check_mk_client_prereqs | List of packages to install before configuring agent | `sudo` |
-| ansible_install_check_mk_client_user | Name of user to configure | `cmkagent` |
-| ansible_install_check_mk_client_home | Home folder of configured user | `"/home/{{ ansible_install_check_mk_client_user }}"` |
-| ansible_install_check_mk_client_count_users_warn | Logged in users, warning threshold | `10` |
-| ansible_install_check_mk_client_count_users_crit | Logged in users, critical threshold | `15` |
-| ansible_install_check_mk_client_count_zombie_procs_warn | Zombie processes, warning threshold | `5` |
-| ansible_install_check_mk_client_count_zombie_procs_crit | Zombie processes, critical threshold | `10` |
-| ansible_install_check_mk_client_freebsd_plugins | List of active FreeBSD plugins | `[]` |
-| ansible_install_check_mk_client_local_checks | List of active local checks | `count_users`, `count_zombie_procs` |
-| ansible_install_check_mk_client_plugins | List of active plugins | ` mk_inventory`, `lvm`, `smart` |
-| ansible_install_check_mk_client_win_tmp | Temporary location of Windows installation file | `c:\check_mk_agent.msi` |
-| ansible_install_check_mk_client_win_filename | Filename of Windows installation file | `check_mk_agent.msi` |
-| ansible_install_check_mk_client_win_config | Filename of Windows configuration template | `check_mk.ini.j2` |
-| ansible_install_check_mk_client_win_folder | Folder the agent gets installed to | `C:\Program Files (x86)\check_mk\` |
-| ansible_install_check_mk_client_win_plugins | List of active Windows plugins | `mk_inventory.vbs` |
+| install_check_mk_client_prereqs | List of packages to install before configuring agent | `sudo` |
+| install_check_mk_client_user | Name of user to configure | `cmkagent` |
+| install_check_mk_client_home | Home folder of configured user | `"/home/{{ install_check_mk_client_user }}"` |
+| install_check_mk_client_count_users_warn | Logged in users, warning threshold | `10` |
+| install_check_mk_client_count_users_crit | Logged in users, critical threshold | `15` |
+| install_check_mk_client_count_zombie_procs_warn | Zombie processes, warning threshold | `5` |
+| install_check_mk_client_count_zombie_procs_crit | Zombie processes, critical threshold | `10` |
+| install_check_mk_client_freebsd_plugins | List of active FreeBSD plugins | `[]` |
+| install_check_mk_client_local_checks | List of active local checks | `count_users`, `count_zombie_procs` |
+| install_check_mk_client_plugins | List of active plugins | ` mk_inventory`, `lvm`, `smart` |
+| install_check_mk_client_win_tmp | Temporary location of Windows installation file | `c:\check_mk_agent.msi` |
+| install_check_mk_client_win_filename | Filename of Windows installation file | `check_mk_agent.msi` |
+| install_check_mk_client_win_config | Filename of Windows configuration template | `check_mk.ini.j2` |
+| install_check_mk_client_win_folder | Folder the agent gets installed to | `C:\Program Files (x86)\check_mk\` |
+| install_check_mk_client_win_plugins | List of active Windows plugins | `mk_inventory.vbs` |
 
 ## Dependencies
 
@@ -59,7 +59,7 @@ Complete example:
 
     - hosts: all
       roles:
-         - { role: ansible-install-check_mk-client, ansible_install_check_mk_client_user: agent }
+         - { role: ansible-install-check_mk-client, install_check_mk_client_user: agent }
 
 ## License
 
