@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-install-check_mk-client (FreeBSD only)
+# tasks file for install-check_mk-client (FreeBSD only)
 
 - name: Create monitoring group
   group: 

@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/kso512/ansible-install-check_mk-client.svg?branch=master)](https://travis-ci.org/kso512/ansible-install-check_mk-client)
+[![Build Status](https://travis-ci.org/kso512/install-check_mk-client.svg?branch=master)](https://travis-ci.org/kso512/install-check_mk-client)
 
-# [ansible-install-check_mk-client](https://galaxy.ansible.com/kso512/install-check_mk-client/)
+# [install-check_mk-client](https://galaxy.ansible.com/kso512/install-check_mk-client/)
 
 An [Ansible](https://www.ansible.com/) [Role](http://docs.ansible.com/ansible/playbooks_roles.html#roles) to install the agent/client for [Check_MK RAW](http://mathias-kettner.com/check_mk_introduction.html).
 
@@ -59,7 +59,7 @@ Complete example:
 
     - hosts: all
       roles:
-         - { role: ansible-install-check_mk-client, install_check_mk_client_user: agent }
+         - { role: install-check_mk-client, install_check_mk_client_user: agent }
 
 ## License
 

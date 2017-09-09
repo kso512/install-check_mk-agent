@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-install-check_mk-client (Windows only)
+# tasks file for install-check_mk-client (Windows only)
 
 - name: Copy agent installation file
   win_copy:

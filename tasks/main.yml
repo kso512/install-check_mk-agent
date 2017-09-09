@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-install-check_mk-client
+# tasks file for install-check_mk-client
 
 - include: "{{ ansible_os_family }}-tasks.yml"
   static: no

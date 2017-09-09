@@ -1,5 +1,5 @@
 ---
-# defaults file for ansible-install-check_mk-client
+# defaults file for install-check_mk-client
 
 install_check_mk_client_authorized_keys: authorized_keys.j2
 install_check_mk_client_prereqs:

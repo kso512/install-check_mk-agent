@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-install-check_mk-client (Debian only)
+# tasks file for install-check_mk-client (Debian only)
 
 - name: Install pre-requisites
   apt:
