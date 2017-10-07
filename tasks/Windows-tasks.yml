@@ -21,7 +21,7 @@
     - files
 
 - name: Generate configuration file from template | WIN_TEMPLATE
-  win_template: 
+  win_template:
     src: "{{ install_check_mk_client_win_config }}"
     dest: "{{ install_check_mk_client_win_folder }}check_mk.ini"
   notify: Restart Windows agent service
@@ -30,7 +30,7 @@
     - files
 
 - name: Generate plugins | WIN_TEMPLATE
-  win_template: 
+  win_template:
     src: "{{ item }}.j2"
     dest: "{{ install_check_mk_client_win_folder }}plugins\\{{ item }}"
   with_items: "{{ install_check_mk_client_win_plugins }}"
