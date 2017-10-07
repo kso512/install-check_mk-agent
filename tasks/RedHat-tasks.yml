@@ -8,7 +8,6 @@
     update_cache: yes
   tags:
     - install-check-mk-client
-    - packaging
 
 - name: Create monitoring group | GROUP
   group:
@@ -16,7 +15,6 @@
     state: present
   tags:
     - install-check-mk-client
-    - users
 
 - name: Create monitoring user | USER
   user:
@@ -26,7 +24,6 @@
     comment: "Check_MK Agent"
   tags:
     - install-check-mk-client
-    - users
 
 - name: Copy Linux check_mk_agent and set executable | TEMPLATE
   template:
@@ -38,7 +35,6 @@
   when: ansible_system.find( 'Linux' ) == 0
   tags:
     - install-check-mk-client
-    - files
 
 - name: Grant sudo for check_mk_agent to monitoring user | TEMPLATE
   template:
@@ -50,8 +46,6 @@
     validate: 'visudo -cf %s'
   tags:
     - install-check-mk-client
-    - files
-    - users
 
 - name: Create directory - .ssh | FILE
   file:
@@ -62,8 +56,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
-    - users
 
 - name: Copy public key to .ssh/authorized_keys | TEMPLATE
   template:
@@ -74,8 +66,6 @@
     dest: "{{ install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
     - install-check-mk-client
-    - files
-    - users
 
 - name: Create directory - local | FILE
   file:
@@ -86,7 +76,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
 - name: Generate local checks | TEMPLATE
   template:
@@ -98,7 +87,6 @@
   with_items: "{{ install_check_mk_client_local_checks }}"
   tags:
     - install-check-mk-client
-    - files
 
 - name: Create directory - plugins | FILE
   file:
@@ -109,7 +97,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
 - name: Generate plugins | TEMPLATE
   template:
@@ -121,7 +108,6 @@
   with_items: "{{ install_check_mk_client_plugins }}"
   tags:
     - install-check-mk-client
-    - files
 
 - name: Create directory - spool | FILE
   file:
@@ -132,7 +118,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
 - name: Create directory - cache | FILE
   file:
@@ -143,5 +128,4 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 

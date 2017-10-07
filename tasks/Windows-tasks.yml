@@ -8,7 +8,6 @@
   register: copy_agent
   tags:
     - install-check-mk-client
-    - files
 
 - name: Install agent | WIN_MSI
   win_msi:
@@ -18,7 +17,6 @@
   when: copy_agent.changed
   tags:
     - install-check-mk-client
-    - files
 
 - name: Generate configuration file from template | WIN_TEMPLATE
   win_template:
@@ -27,7 +25,6 @@
   notify: Restart Windows agent service
   tags:
     - install-check-mk-client
-    - files
 
 - name: Generate plugins | WIN_TEMPLATE
   win_template:
@@ -37,5 +34,4 @@
   notify: Restart Windows agent service
   tags:
     - install-check-mk-client
-    - files
 

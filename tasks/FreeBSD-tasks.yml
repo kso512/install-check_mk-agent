@@ -7,7 +7,6 @@
     state: present
   tags:
     - install-check-mk-client
-    - users
 
 - name: Create monitoring user | USER
   user:
@@ -17,7 +16,6 @@
     comment: "Check_MK Agent"
   tags:
     - install-check-mk-client
-    - users
 
 - name: Copy check_mk_agent and set executable | TEMPLATE
   template:
@@ -28,7 +26,6 @@
     dest: "{{ install_check_mk_client_home }}/check_mk_agent"
   tags:
     - install-check-mk-client
-    - files
 
 - name: Grant sudo for check_mk_agent to monitoring user | TEMPLATE
   template:
@@ -40,8 +37,6 @@
     validate: 'visudo -cf %s'
   tags:
     - install-check-mk-client
-    - files
-    - users
 
 - name: Create directory - .ssh | FILE
   file:
@@ -52,8 +47,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
-    - users
 
 - name: Copy public key to .ssh/authorized_keys | TEMPLATE
   template:
@@ -64,8 +57,6 @@
     dest: "{{ install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
     - install-check-mk-client
-    - files
-    - users
 
 - name: Create directory - local | FILE
   file:
@@ -76,7 +67,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
 - name: Generate local checks | TEMPLATE
   template:
@@ -88,7 +78,6 @@
   with_items: "{{ install_check_mk_client_local_checks }}"
   tags:
     - install-check-mk-client
-    - files
 
 - name: Create directory - plugins | FILE
   file:
@@ -99,7 +88,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
 - name: Generate plugins | TEMPLATE
   template:
@@ -111,7 +99,6 @@
   with_items: "{{ install_check_mk_client_freebsd_plugins }}"
   tags:
     - install-check-mk-client
-    - files
 
 - name: Create directory - spool | FILE
   file:
@@ -122,7 +109,6 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
 - name: Create directory - cache | FILE
   file:
@@ -133,5 +119,4 @@
     state: directory
   tags:
     - install-check-mk-client
-    - files
 
