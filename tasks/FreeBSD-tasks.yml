@@ -1,7 +1,7 @@
 ---
 # tasks file for install-check_mk-client (FreeBSD only)
 
-- name: Create monitoring group
+- name: Create monitoring group | GROUP
   group: 
     name: "{{ install_check_mk_client_user }}" 
     state: present
@@ -9,7 +9,7 @@
     - install-check-mk-client
     - users
 
-- name: Create monitoring user
+- name: Create monitoring user | USER
   user: 
     name: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -19,7 +19,7 @@
     - install-check-mk-client
     - users
 
-- name: Copy check_mk_agent and set executable
+- name: Copy check_mk_agent and set executable | TEMPLATE
   template: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -30,7 +30,7 @@
     - install-check-mk-client
     - files
 
-- name: Grant sudo for check_mk_agent to monitoring user
+- name: Grant sudo for check_mk_agent to monitoring user | TEMPLATE
   template:
     owner: root
     group: wheel
@@ -43,7 +43,7 @@
     - files
     - users
 
-- name: Create directory - .ssh
+- name: Create directory - .ssh | FILE
   file: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -55,7 +55,7 @@
     - files
     - users
 
-- name: Copy public key to .ssh/authorized_keys
+- name: Copy public key to .ssh/authorized_keys | TEMPLATE
   template: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -67,7 +67,7 @@
     - files
     - users
 
-- name: Create directory - local
+- name: Create directory - local | FILE
   file: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -78,7 +78,7 @@
     - install-check-mk-client
     - files
 
-- name: Generate local checks
+- name: Generate local checks | TEMPLATE
   template: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -90,7 +90,7 @@
     - install-check-mk-client
     - files
 
-- name: Create directory - plugins
+- name: Create directory - plugins | FILE
   file: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -101,7 +101,7 @@
     - install-check-mk-client
     - files
 
-- name: Generate plugins
+- name: Generate plugins | TEMPLATE
   template: 
     owner: "{{ install_check_mk_client_user }}"
     group: "{{ install_check_mk_client_user }}"
@@ -113,7 +113,7 @@
     - install-check-mk-client
     - files
 
-- name: Create directory - spool
+- name: Create directory - spool | FILE
   file: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 
@@ -124,7 +124,7 @@
     - install-check-mk-client
     - files
 
-- name: Create directory - cache
+- name: Create directory - cache | FILE
   file: 
     owner: "{{ install_check_mk_client_user }}" 
     group: "{{ install_check_mk_client_user }}" 

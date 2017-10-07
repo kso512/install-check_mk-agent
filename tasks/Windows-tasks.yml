@@ -1,7 +1,7 @@
 ---
 # tasks file for install-check_mk-client (Windows only)
 
-- name: Copy agent installation file
+- name: Copy agent installation file | WIN_COPY
   win_copy:
     dest: "{{ install_check_mk_client_win_tmp }}"
     src: "{{ install_check_mk_client_win_filename }}"
@@ -10,7 +10,7 @@
     - install-check-mk-client
     - files
 
-- name: Install agent
+- name: Install agent | WIN_MSI
   win_msi:
     path: "{{ install_check_mk_client_win_tmp }}"
     state: present
@@ -20,7 +20,7 @@
     - install-check-mk-client
     - files
 
-- name: Generate configuration file from template
+- name: Generate configuration file from template | WIN_TEMPLATE
   win_template: 
     src: "{{ install_check_mk_client_win_config }}"
     dest: "{{ install_check_mk_client_win_folder }}check_mk.ini"
@@ -29,7 +29,7 @@
     - install-check-mk-client
     - files
 
-- name: Generate plugins
+- name: Generate plugins | WIN_TEMPLATE
   win_template: 
     src: "{{ item }}.j2"
     dest: "{{ install_check_mk_client_win_folder }}plugins\\{{ item }}"
