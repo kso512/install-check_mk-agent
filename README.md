@@ -4,6 +4,8 @@
 
 An [Ansible](https://www.ansible.com/) [Role](http://docs.ansible.com/ansible/playbooks_roles.html#roles) to install the agent/client for [Check_MK RAW](http://mathias-kettner.com/check_mk_introduction.html).
 
+All tasks are tagged with `install-check-mk-client`.
+
 This role utilizes SSH on Unix-type systems instead of the default port 6556.  This encrypts communications and avoids opening a new port for monitoring and setting up a new service.
 
 Tested with [Travis continuous integration](https://travis-ci.org/) on the following distributions:
