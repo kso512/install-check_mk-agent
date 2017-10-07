@@ -25,6 +25,19 @@ The following operating systems are also supported and tested manually:
 
 ## Requirements
 
+Requirements on host that executes role:
+- groupadd
+- groupdel
+- groupmod
+
+Requirements on host that executes role with APT:
+- python-apt (python 2)
+- python3-apt (python 3)
+- aptitude (before 2.4)
+
+Requirements on host that executes role with YUM:
+- yum
+
 If the server is Windows and has a firewall enabled, it may need to be altered to allow incoming packets on TCP port 6556.
 
 ## Role Variables
