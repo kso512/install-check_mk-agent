@@ -19,14 +19,14 @@ install_check_mk_client_local_checks:
   - count_zombie_procs
 
 install_check_mk_client_plugins:
-  - mk_inventory
+  - mk_inventory.linux
   - lvm
   - smart
 
 install_check_mk_client_freebsd_plugins: []
-install_check_mk_client_win_tmp: c:\check_mk_agent.msi
+install_check_mk_client_win_tmp: "c:\{{ install_check_mk_client_win_filename }}"
 install_check_mk_client_win_filename: check_mk_agent.msi
-install_check_mk_client_win_config: check_mk.ini.j2
+install_check_mk_client_win_config: check_mk.example.ini.j2
 install_check_mk_client_win_folder: C:\Program Files (x86)\check_mk\
 install_check_mk_client_win_plugins:
   - mk_inventory.vbs
