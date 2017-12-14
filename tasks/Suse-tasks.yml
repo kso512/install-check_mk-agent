@@ -54,7 +54,7 @@
     owner: "{{ install_check_mk_client_user }}"
     group: "{{ install_check_mk_client_user }}"
     mode: 0600
-    src: authorized_keys.j2
+    src: "{{ install_check_mk_client_authorized_keys }}"
     dest: "{{ install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
     - install-check-mk-client
