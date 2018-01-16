@@ -244,7 +244,7 @@ function run_real_time_checks()
 }
 
 echo '<<<check_mk>>>'
-echo Version: 1.4.0p22
+echo Version: 1.4.0p23
 echo AgentOS: linux
 echo Hostname: $HOSTNAME
 echo AgentDirectory: $MK_CONFDIR
@@ -700,7 +700,7 @@ if type postfix >/dev/null ; then
             if [ -e "$i/pid/master.pid" ]; then
                 if [ -r "$i/pid/master.pid" ]; then
                     postfix_pid=$(cat $i/pid/master.pid | sed 's/ //g') # handle possible spaces in output
-                    if readlink -- "/proc/$postfix_pid/exe" | grep -q ".*postfix/\(sbin/\)\?master.*"; then
+                    if readlink -- "/proc/$postfix_pid/exe" | grep -q ".*postfix/\(s\?bin/\)\?master.*"; then
                         echo "$i:the Postfix mail system is running:PID:$postfix_pid" | sed 's/\/var\/spool\///g'
                     else
                         echo "$i:PID file exists but instance is not running!" | sed 's/\/var\/spool\///g'
