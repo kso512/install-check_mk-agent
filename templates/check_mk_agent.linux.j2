@@ -33,6 +33,8 @@ export MK_LIBDIR="{{ install_check_mk_client_home }}"
 export MK_CONFDIR="{{ install_check_mk_client_home }}"
 export MK_VARDIR="{{ install_check_mk_client_home }}"
 
+{% raw %}
+
 # Provide information about the remote host. That helps when data
 # is being sent only once to each remote host.
 if [ "$REMOTE_HOST" ] ; then
@@ -1252,3 +1254,5 @@ then
     done
     popd > /dev/null
 fi
+
+{% endraw %}
