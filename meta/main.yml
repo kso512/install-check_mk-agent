@@ -1,12 +1,9 @@
 galaxy_info:
   author: Chris Lindbergh
   description: A role to install Check_MK RAW agent.
-  company: TinkerMill
-
+  company: Cold Creek Solutions, Inc.
   license: BSD
-
-  min_ansible_version: 2.2
-
+  min_ansible_version: 2.5
   platforms:
     - name: Debian
       versions:
@@ -31,7 +28,6 @@ galaxy_info:
     - name: Windows
       versions:
         - 2012R2
-
   galaxy_tags:
     - CheckMK
     - check
@@ -51,5 +47,4 @@ galaxy_info:
     - microsoft
     - windows
     - opensuse
-
 dependencies: []
