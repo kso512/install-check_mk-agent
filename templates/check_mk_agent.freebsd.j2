@@ -46,6 +46,9 @@ export MK_LIBDIR="{{ install_check_mk_client_home }}"
 export MK_CONFDIR="{{ install_check_mk_client_home }}"
 export MK_VARDIR="{{ install_check_mk_client_home }}"
 
+# Optionally set a tempdir for all subsequent calls
+#export TMPDIR=
+
 # Make sure, locally installed binaries are found
 PATH=$PATH:/usr/local/bin:/usr/local/sbin
 
@@ -105,7 +108,7 @@ function run_cached() {
 }
 
 echo '<<<check_mk>>>'
-echo Version: 1.5.0p7
+echo Version: 1.5.0p11
 echo AgentOS: freebsd
 
 
