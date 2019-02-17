@@ -46,6 +46,10 @@ elif [ "$SSH_CLIENT" ] ; then
     export REMOTE=${SSH_CLIENT%% *}
 fi
 
+# The package name gets patched for baked agents to either
+# "check-mk-agent" or the name set by the "name of agent packages" rule
+XINETD_SERVICE_NAME=check_mk
+
 # Make sure, locally installed binaries are found
 PATH=$PATH:/usr/local/bin
 
@@ -351,7 +355,7 @@ function run_real_time_checks()
 }
 
 echo '<<<check_mk>>>'
-echo Version: 1.5.0p11
+echo Version: 1.5.0p12
 echo "AgentOS: linux"
 echo "Hostname: $HOSTNAME"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -364,7 +368,7 @@ echo "LocalDirectory: $LOCALDIR"
 if [ -n "$REMOTE_HOST" ]
 then
     echo -n 'OnlyFrom: '
-    sed -n '/^service[[:space:]]*check_mk/,/}/s/^[[:space:]]*only_from[[:space:]]*=[[:space:]]*\(.*\)/\1/p' /etc/xinetd.d/* | head -n1; echo
+    sed -n '/^service[[:space:]]*'$XINETD_SERVICE_NAME'/,/}/s/^[[:space:]]*only_from[[:space:]]*=[[:space:]]*\(.*\)/\1/p' /etc/xinetd.d/* | head -n1; echo
 fi
 
 section_df
@@ -477,13 +481,13 @@ fi
 
 
 # Number of TCP connections in the various states
-echo '<<<tcp_conn_stats>>>'
-if type ss > /dev/null ; then
-    ss -ant |grep -v ^State | awk ' /:/ { c[$1]++; } END { for (x in c) { print x, c[x]; } }' |sed -e 's/^ESTAB/01/g;s/^SYN-SENT/02/g;s/^SYN-RECV/03/g;s/^FIN-WAIT-1/04/g;s/^FIN-WAIT-2/05/g;s/^TIME-WAIT/06/g;s/^CLOSED/07/g;s/^CLOSE-WAIT/08/g;s/^LAST-ACK/09/g;s/^LISTEN/0A/g;s/^CLOSING/0B/g;'
-elif type waitmax >/dev/null ; then
-    THIS=$(waitmax -s 1 10 cat /proc/net/tcp /proc/net/tcp6 2>/dev/null | awk ' /:/ { c[$4]++; } END { for (x in c) { print x, c[x]; } }')
+if type waitmax >/dev/null ; then
+    echo '<<<tcp_conn_stats>>>'
+    THIS=$(waitmax 5 cat /proc/net/tcp /proc/net/tcp6 2>/dev/null | awk ' /:/ { c[$4]++; } END { for (x in c) { print x, c[x]; } }')
     if [ $? == 0 ] ; then
         echo "$THIS"
+    elif type ss > /dev/null ; then
+        ss -ant |grep -v ^State | awk ' /:/ { c[$1]++; } END { for (x in c) { print x, c[x]; } }' | sed -e 's/^ESTAB/01/g;s/^SYN-SENT/02/g;s/^SYN-RECV/03/g;s/^FIN-WAIT-1/04/g;s/^FIN-WAIT-2/05/g;s/^TIME-WAIT/06/g;s/^CLOSED/07/g;s/^CLOSE-WAIT/08/g;s/^LAST-ACK/09/g;s/^LISTEN/0A/g;s/^CLOSING/0B/g;'
     fi
 fi
 
@@ -959,7 +963,7 @@ if pushd "$MK_VARDIR/job" >/dev/null; then
     do
         if [ -d "$username" ] && cd "$username" ; then
             if [ $EUID -eq 0 ]; then
-                su "$username" -c "head -n -0 -v *"
+                su -s "$SHELL" "$username" -c "head -n -0 -v *"
             else
                 head -n -0 -v ./*
             fi
