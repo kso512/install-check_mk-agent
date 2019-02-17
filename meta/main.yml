@@ -22,7 +22,7 @@ galaxy_info:
         - 13.2
     - name: Ubuntu
       versions:
-        - precise
+        - bionic
         - trusty
         - xenial
     - name: Windows
@@ -38,7 +38,7 @@ galaxy_info:
     - debian
     - jessie
     - stretch
-    - precise
+    - bionic
     - trusty
     - xenial
     - centos

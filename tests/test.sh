@@ -37,16 +37,16 @@ if [ $distro = 'centos7' ]; then
 elif [ $distro = 'centos6' ]; then
   init="/sbin/init"
   opts="--privileged"
+# Ubuntu 18.04
+elif [ $distro = 'ubuntu1804' ]; then
+  init="/lib/systemd/systemd"
+  opts="--privileged --volume=/var/lib/docker --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 # Ubuntu 16.04
 elif [ $distro = 'ubuntu1604' ]; then
   init="/lib/systemd/systemd"
   opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 # Ubuntu 14.04
 elif [ $distro = 'ubuntu1404' ]; then
-  init="/sbin/init"
-  opts="--privileged"
-# Ubuntu 12.04
-elif [ $distro = 'ubuntu1204' ]; then
   init="/sbin/init"
   opts="--privileged"
 # Debian 8
