@@ -19,8 +19,12 @@ install_check_mk_client_local_checks:
   - count_zombie_procs
 
 install_check_mk_client_plugins:
-  - mk_inventory.linux
   - lvm
+  - mk_inventory.linux
+  - mk_iptables
+  - mk_sshd_config
+  - netstat.linux
+  - nfsexports
   - smart
 
 install_check_mk_client_freebsd_plugins: []
