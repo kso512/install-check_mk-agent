@@ -33,6 +33,9 @@ export MK_LIBDIR="{{ install_check_mk_client_home }}"
 export MK_CONFDIR="{{ install_check_mk_client_home }}"
 export MK_VARDIR="{{ install_check_mk_client_home }}"
 
+# Optionally set a tempdir for all subsequent calls
+#export TMPDIR=
+
 {% raw %}
 
 # Provide information about the remote host. That helps when data
@@ -348,7 +351,7 @@ function run_real_time_checks()
 }
 
 echo '<<<check_mk>>>'
-echo Version: 1.5.0p7
+echo Version: 1.5.0p11
 echo "AgentOS: linux"
 echo "Hostname: $HOSTNAME"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -999,32 +1002,6 @@ if type pvecm > /dev/null 2>&1 ; then
     pvecm status
     echo "<<<pvecm_nodes>>>"
     pvecm nodes
-fi
-
-# Iterate all running containers and report piggyback data for them
-if type docker > /dev/null 2>&1 && [ -z "$MK_IS_PIGGYBACKED" ]; then
-    echo "<<<docker_node_info:sep(58)>>>"
-    # sed: protect leading whitespace
-    docker info | sed 's/^/|/'
-
-    echo "<<<docker_node_disk_usage:sep(0)>>>"
-    docker system df
-
-    echo "<<<docker_node_images>>>"
-    echo "[[[images]]]"
-    docker images --format "{{json .}}"
-
-    echo "[[[image_inspect]]]"
-    IMAGE_IDS=$(docker images | awk 'NR>1 {print $3}')
-    docker image inspect $IMAGE_IDS
-
-    echo "[[[containers]]]"
-    # equivalent of 'docker ps' for newer docker versions: 'docker container ls'
-    docker ps --all --format "{{json .}}"
-
-    echo "<<<docker_node_network:sep(0)>>>"
-    NETWORK_IDS=$(docker network ls -f 'driver=bridge' | awk 'NR>1 {print $1}')
-    docker network inspect $NETWORK_IDS
 fi
 
 # Start new liveupdate process in background on each agent execution. Starting
