@@ -1,13 +1,11 @@
 ---
 # tasks file for install-check_mk-client (FreeBSD only)
-
 - name: Create monitoring group | GROUP
   group:
     name: "{{ install_check_mk_client_user }}"
     state: present
   tags:
     - install-check-mk-client
-
 - name: Create monitoring user | USER
   user:
     name: "{{ install_check_mk_client_user }}"
@@ -16,7 +14,6 @@
     comment: "Check_MK Agent"
   tags:
     - install-check-mk-client
-
 - name: Copy check_mk_agent and set executable | TEMPLATE
   template:
     owner: "{{ install_check_mk_client_user }}"
@@ -26,7 +23,6 @@
     dest: "{{ install_check_mk_client_home }}/check_mk_agent"
   tags:
     - install-check-mk-client
-
 - name: Grant sudo for check_mk_agent to monitoring user | TEMPLATE
   template:
     owner: root
@@ -37,7 +33,6 @@
     validate: 'visudo -cf %s'
   tags:
     - install-check-mk-client
-
 - name: Create directory - .ssh | FILE
   file:
     owner: "{{ install_check_mk_client_user }}"
@@ -47,7 +42,6 @@
     state: directory
   tags:
     - install-check-mk-client
-
 - name: Copy public key to .ssh/authorized_keys | TEMPLATE
   template:
     owner: "{{ install_check_mk_client_user }}"
@@ -57,7 +51,6 @@
     dest: "{{ install_check_mk_client_home }}/.ssh/authorized_keys"
   tags:
     - install-check-mk-client
-
 - name: Create directory - local | FILE
   file:
     owner: "{{ install_check_mk_client_user }}"
@@ -67,7 +60,6 @@
     state: directory
   tags:
     - install-check-mk-client
-
 - name: Generate local checks | TEMPLATE
   template:
     owner: "{{ install_check_mk_client_user }}"
@@ -78,7 +70,6 @@
   with_items: "{{ install_check_mk_client_local_checks }}"
   tags:
     - install-check-mk-client
-
 - name: Create directory - plugins | FILE
   file:
     owner: "{{ install_check_mk_client_user }}"
@@ -88,7 +79,6 @@
     state: directory
   tags:
     - install-check-mk-client
-
 - name: Generate plugins | TEMPLATE
   template:
     owner: "{{ install_check_mk_client_user }}"
@@ -99,7 +89,6 @@
   with_items: "{{ install_check_mk_client_freebsd_plugins }}"
   tags:
     - install-check-mk-client
-
 - name: Create directory - spool | FILE
   file:
     owner: "{{ install_check_mk_client_user }}"
@@ -109,7 +98,6 @@
     state: directory
   tags:
     - install-check-mk-client
-
 - name: Create directory - cache | FILE
   file:
     owner: "{{ install_check_mk_client_user }}"
@@ -119,4 +107,3 @@
     state: directory
   tags:
     - install-check-mk-client
-

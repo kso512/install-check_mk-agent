@@ -1,6 +1,5 @@
 ---
 # handlers file for install-check_mk-client
-
 - name: Restart Windows agent service
   win_service:
     name: Check_MK_Agent
@@ -8,4 +7,3 @@
   tags:
     - install-check-mk-client
     - files
-

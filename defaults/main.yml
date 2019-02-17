@@ -1,23 +1,17 @@
 ---
 # defaults file for install-check_mk-client
-
 install_check_mk_client_authorized_keys: authorized_keys.j2
 install_check_mk_client_prereqs:
   - sudo 
-
 install_check_mk_client_user: cmkagent
 install_check_mk_client_home: "/home/{{ install_check_mk_client_user }}"
-
 install_check_mk_client_count_users_warn: 10
 install_check_mk_client_count_users_crit: 15
-
 install_check_mk_client_count_zombie_procs_warn: 5
 install_check_mk_client_count_zombie_procs_crit: 10
-
 install_check_mk_client_local_checks:
   - count_users
   - count_zombie_procs
-
 install_check_mk_client_plugins:
   - lvm
   - mk_inventory.linux
@@ -26,7 +20,6 @@ install_check_mk_client_plugins:
   - netstat.linux
   - nfsexports
   - smart
-
 install_check_mk_client_freebsd_plugins: []
 install_check_mk_client_win_tmp: "c:\\{{ install_check_mk_client_win_filename }}"
 install_check_mk_client_win_filename: check_mk_agent.msi
@@ -34,4 +27,3 @@ install_check_mk_client_win_config: check_mk.example.ini.j2
 install_check_mk_client_win_folder: C:\Program Files (x86)\check_mk\
 install_check_mk_client_win_plugins:
   - mk_inventory.vbs
-
