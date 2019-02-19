@@ -1,3 +1,4 @@
 ---
 # tasks file for install-check_mk-client
 - include_tasks: "{{ ansible_os_family }}-tasks.yml"
+  tags: install-check-mk-client
