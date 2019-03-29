@@ -7,7 +7,6 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - jessie
         - stretch
     - name: EL
       versions:
@@ -36,7 +35,6 @@ galaxy_info:
     - cre
     - ubuntu
     - debian
-    - jessie
     - stretch
     - bionic
     - trusty
