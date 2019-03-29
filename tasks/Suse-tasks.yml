@@ -21,7 +21,6 @@
     mode: 0755
     src: check_mk_agent.linux.j2
     dest: "{{ install_check_mk_client_home }}/check_mk_agent"
-  when: ansible_system.find( 'Linux' ) == 0
   tags:
     - install-check-mk-client
 - name: Grant sudo for check_mk_agent to monitoring user | TEMPLATE
