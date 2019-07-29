@@ -355,7 +355,7 @@ function run_real_time_checks()
 }
 
 echo '<<<check_mk>>>'
-echo Version: 1.5.0p19
+echo Version: 1.5.0p20
 echo "AgentOS: linux"
 echo "Hostname: $HOSTNAME"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -376,8 +376,7 @@ section_df
 # Filesystem usage for ZFS
 if type zfs > /dev/null 2>&1 ; then
     echo '<<<zfsget>>>'
-    zfs get -Hp name,quota,used,avail,mountpoint,type -t filesystem,volume || \
-       zfs get -Hp name,quota,used,avail,mountpoint,type
+    zfs get -t filesystem,volume -Hp name,quota,used,avail,mountpoint,type 2>/dev/null
     echo '[df]'
     df -PTlk -t zfs | sed 1d
 fi
@@ -1175,9 +1174,8 @@ if cd "$PLUGINSDIR"; then
 fi
 
 # Agent output snippets created by cronjobs, etc.
-if [ -d "$SPOOLDIR" ]
-then
-    pushd "$SPOOLDIR" > /dev/null
+if [ -d "$SPOOLDIR" ] && [ -r "$SPOOLDIR" ]; then
+    pushd "$SPOOLDIR" >/dev/null
     now=$(date +%s)
 
     for file in *
