@@ -7,6 +7,7 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
+        - buster
         - stretch
     - name: EL
       versions:
@@ -35,6 +36,7 @@ galaxy_info:
     - cre
     - ubuntu
     - debian
+    - buster
     - stretch
     - bionic
     - trusty

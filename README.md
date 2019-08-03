@@ -13,6 +13,7 @@ Tested with [Travis continuous integration](https://travis-ci.org/) on the follo
 - [CentOS-6](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS6.9)
 - [CentOS-7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
 - [Debian 9 "Stretch"](https://www.debian.org/releases/stretch/)
+- [Debian 10 "Buster"](https://www.debian.org/releases/buster/)
 - [Ubuntu 14.04 LTS "Trusty Tahr"](http://releases.ubuntu.com/trusty/)
 - [Ubuntu 16.04 LTS "Xenial Xerus"](http://releases.ubuntu.com/xenial/)
 - [Ubuntu 18.04 LTS "Bionic Beaver"](http://releases.ubuntu.com/bionic/)
