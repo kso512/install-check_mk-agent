@@ -98,7 +98,14 @@ function run_cached() {
         if [ $((NOW - MTIME)) -le $MAXAGE ] ; then local USE_CACHEFILE=1 ; fi
         # Output the file in any case, even if it is
         # outdated. The new file will not yet be available
-        cat "$CACHEFILE"
+        CACHE_INFO="cached($MTIME,$MAXAGE)"
+        if [[ $NAME == local_* ]]; then
+            sed -e "s/^/$CACHE_INFO /" "$CACHEFILE"
+        else
+            # insert the cache info in the section header (^= after '!'),
+            # if none is present (^= before '!')
+            sed -e '/^<<<.*\(:cached(\).*>>>/!s/^<<<\([^>]*\)>>>$/<<<\1:'$CACHE_INFO'>>>/' "$CACHEFILE"
+        fi
     fi
 
     # Cache file outdated and new job not yet running? Start it
@@ -107,11 +114,15 @@ function run_cached() {
     fi
 }
 
-echo '<<<check_mk>>>'
-echo Version: 1.5.0p22
-echo AgentOS: freebsd
-
-
+echo "<<<check_mk>>>"
+echo "Version: 1.6.0"
+echo "AgentOS: freebsd"
+echo "Hostname: $(hostname)"
+echo "AgentDirectory: $MK_CONFDIR"
+echo "DataDirectory: $MK_VARDIR"
+echo "SpoolDirectory: $SPOOLDIR"
+echo "PluginsDirectory: $PLUGINSDIR"
+echo "LocalDirectory: $LOCALDIR"
 
 osver="$(uname -r)"
 is_jailed="$(sysctl -n security.jail.jailed)"
@@ -138,6 +149,9 @@ if type zfs > /dev/null 2>&1 ; then
        zfs get -Hp name,quota,used,avail,mountpoint,type
     echo '[df]'
     df -kP -t zfs | sed 1d
+    # arc stats for zfs_arc_cache
+    echo '<<<zfs_arc_cache>>>'
+    sysctl -q kstat.zfs.misc.arcstats |  sed -e 's/kstat.zfs.misc.arcstats.//g' -e 's/: / = /g'
 fi
 
 # Check NFS mounts by accessing them with stat -f (System
@@ -380,22 +394,37 @@ fi
 
 
 # Fileinfo-Check: put patterns for files into /etc/check_mk/fileinfo.cfg
-if [ -r "$MK_CONFDIR/fileinfo.cfg" ] ; then
-    echo '<<<fileinfo:sep(124)>>>'
-    date +%s
+perl -e '
+use File::Glob "bsd_glob";
+my @patterns = ();
+foreach (bsd_glob("$ARGV[0]/fileinfo.cfg"), bsd_glob("$ARGV[0]/fileinfo.d/*")) {
+    open my $handle, "<", $_ or next;
+    while (<$handle>) {
+        chomp;
+        next if /^\s*(#|$)/;
+        my $pattern = $_;
+        $pattern =~ s/\$DATE:(.*?)\$/substr(`date +"$1"`, 0, -1)/eg;
+        push @patterns, $pattern;
+    }
+    warn "error while reading $_: $!\n" if $!;
+    close $handle;
+}
+exit if ! @patterns;
 
-    OLD_IFS=$IFS
-    IFS='
-'
-    while read -r pattern; do
-        case $pattern in
-            /*) for file in $pattern; do
-                    stat -f "%N|%z|%m" "$file" 2>/dev/null || echo "$file|missing|`date +%s`"
-                done ;;
-        esac
-    done < "$MK_CONFDIR/fileinfo.cfg"
-    IFS=$OLD_IFS
-fi
+print "<<<fileinfo:sep(124)>>>\n", time, "\n[[[header]]]\nname|status|size|time\n[[[content]]]\n";
+
+foreach (@patterns) {
+    foreach (bsd_glob("$_")) {
+        if (! -f) {
+            print "$_|missing\n" if ! -d;
+        } elsif (my @infos = stat) {
+            print "$_|ok|$infos[7]|$infos[9]\n";
+        } else {
+            print "$_|stat failed: $!\n";
+        }
+    }
+}
+' -- "$MK_CONFDIR"
 
 
 # Local checks
@@ -443,3 +472,4 @@ then
         echo
     done
 fi
+
