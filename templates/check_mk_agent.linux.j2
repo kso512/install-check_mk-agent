@@ -32,9 +32,7 @@ unset LANG
 export MK_LIBDIR="{{ install_check_mk_client_home }}"
 export MK_CONFDIR="{{ install_check_mk_client_home }}"
 export MK_VARDIR="{{ install_check_mk_client_home }}"
-
-{% raw %}
-
+{% raw %}  
 # Optionally set a tempdir for all subsequent calls
 #export TMPDIR=
 
@@ -143,10 +141,8 @@ section_mem() {
     else
         echo '<<<docker_container_mem>>>'
         cat /sys/fs/cgroup/memory/memory.stat
-        echo -n "usage_in_bytes "
-        cat /sys/fs/cgroup/memory/memory.usage_in_bytes
-        echo -n "limit_in_bytes "
-        cat /sys/fs/cgroup/memory/memory.limit_in_bytes
+        echo "usage_in_bytes $(cat /sys/fs/cgroup/memory/memory.usage_in_bytes)"
+        echo "limit_in_bytes $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)"
         grep -F 'MemTotal:' /proc/meminfo
     fi
 }
@@ -412,7 +408,7 @@ run_real_time_checks() {
 }
 
 echo "<<<check_mk>>>"
-echo "Version: 1.6.0p3"
+echo "Version: 1.6.0p5"
 echo "AgentOS: linux"
 echo "Hostname: $(hostname)"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -491,8 +487,7 @@ if inpath ps; then
     if [ -e /sys/fs/cgroup ]; then
         CGROUP="cgroup:512,"
     fi
-    echo -n '[header] '
-    ps ax -o "$CGROUP"user:32,vsz,rss,cputime,etime,pid,command --columns 10000
+    echo "[header] $(ps ax -o "$CGROUP"user:32,vsz,rss,cputime,etime,pid,command --columns 10000)"
 fi
 
 # Memory usage
@@ -584,8 +579,7 @@ else
     done
     echo "[names]"
     for F in /sys/block/*; do
-        echo -n "${F##*/} "
-        cat "$F/dev"
+        echo "${F##*/} $(cat "$F/dev")"
     done
 fi
 
@@ -867,6 +861,7 @@ if inpath omd; then
 
     run_cached -s omd_status 60 "omd status --bare --auto || true"
     echo '<<<mknotifyd:sep(0)>>>'
+    date +%s
     for statefile in /omd/sites/*/var/log/mknotifyd.state; do
         if [ -e "$statefile" ]; then
             site=${statefile%/var/log*}
@@ -1261,6 +1256,4 @@ if [ -d "$SPOOLDIR" ] && [ -r "$SPOOLDIR" ]; then
     done
     popd >/dev/null
 fi
-
 {% endraw %}
-
