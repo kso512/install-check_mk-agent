@@ -16,6 +16,7 @@ install_check_mk_client_plugins:
   - lvm
   - mk_inventory.linux
   - mk_iptables
+  - mk_nfsiostat
   - mk_sshd_config
   - netstat.linux
   - nfsexports
