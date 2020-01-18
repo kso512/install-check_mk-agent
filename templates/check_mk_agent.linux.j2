@@ -408,7 +408,7 @@ run_real_time_checks() {
 }
 
 echo "<<<check_mk>>>"
-echo "Version: 1.6.0p6"
+echo "Version: 1.6.0p8"
 echo "AgentOS: linux"
 echo "Hostname: $(hostname)"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -776,9 +776,7 @@ read_postfix_queue_dirs() {
     postfix_queue_dir=$1
     if [ -n "$postfix_queue_dir" ]; then
         echo '<<<postfix_mailq>>>'
-        if [ -n "$2" ]; then
             echo "[[[${2}]]]"
-        fi
         for queue in deferred active; do
             count=$(find "${postfix_queue_dir}/$queue" -type f | wc -l)
             size=$(du -s "${postfix_queue_dir}/$queue" | awk '{print $1 }')
@@ -807,11 +805,9 @@ if inpath postconf; then
                 read_postfix_queue_dirs "$postfix_queue_dir" "$queue_dir"
             fi
         done
-
-    else
-        postfix_queue_dir=$(postconf -h queue_directory 2>/dev/null)
-        read_postfix_queue_dirs "$postfix_queue_dir"
     fi
+    # Always check for the default queue. It can exist even if multiple instances are configured
+    read_postfix_queue_dirs "$(postconf -h queue_directory 2>/dev/null)"
 
 elif [ -x /usr/sbin/ssmtp ]; then
     echo '<<<postfix_mailq>>>'
@@ -1153,7 +1149,7 @@ if [ -e "$MK_CONFDIR/runas.cfg" ]; then
                             fi
 
                             if [ -n "$PREFIX" ]; then
-                                cmdline="$PREFIX\'$cmdline\'"
+                                cmdline="$PREFIX'$cmdline'"
                             fi
                             if [ -z "$interval" ]; then
                                 run_mrpe "$descr" "$cmdline"
