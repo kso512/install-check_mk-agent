@@ -28,3 +28,4 @@ install_check_mk_client_win_config: check_mk.example.ini.j2
 install_check_mk_client_win_folder: C:\Program Files (x86)\check_mk\
 install_check_mk_client_win_plugins:
   - mk_inventory.vbs
+...

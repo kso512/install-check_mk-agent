@@ -11,4 +11,3 @@ To run the test playbook(s) in this directory:
 If you don't want the container to be automatically deleted after the test playbook is run, add the following environment variables: `cleanup=false container_id=$(date +%s)`
 
 Credit to [Jeff Geerling](https://www.jeffgeerling.com/)
-
