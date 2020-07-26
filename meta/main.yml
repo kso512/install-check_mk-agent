@@ -23,7 +23,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
-        - trusty
+        - focal
         - xenial
     - name: Windows
       versions:
