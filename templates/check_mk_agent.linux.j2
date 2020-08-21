@@ -408,7 +408,7 @@ run_real_time_checks() {
 }
 
 echo "<<<check_mk>>>"
-echo "Version: 1.6.0p14"
+echo "Version: 1.6.0p16"
 echo "AgentOS: linux"
 echo "Hostname: $(hostname)"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -776,7 +776,7 @@ read_postfix_queue_dirs() {
     postfix_queue_dir=$1
     if [ -n "$postfix_queue_dir" ]; then
         echo '<<<postfix_mailq>>>'
-            echo "[[[${2}]]]"
+        echo "[[[${2}]]]"
         for queue in deferred active; do
             count=$(find "${postfix_queue_dir}/$queue" -type f | wc -l)
             size=$(du -s "${postfix_queue_dir}/$queue" | awk '{print $1 }')
