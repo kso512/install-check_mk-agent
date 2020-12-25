@@ -1,6 +1,6 @@
 # [install-check_mk-client](https://galaxy.ansible.com/kso512/install-check_mk-client/)
 
-[![Build Status](https://travis-ci.org/kso512/install-check_mk-client.svg?branch=master)](https://travis-ci.org/kso512/install-check_mk-client) ![Ansible Role](https://img.shields.io/ansible/role/d/16931) [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org) ![GitHub](https://img.shields.io/github/license/kso512/install-check_mk-client)
+[![Build Status](https://travis-ci.com/kso512/install-check_mk-client.svg?branch=master)](https://travis-ci.com/kso512/install-check_mk-client) ![Ansible Role](https://img.shields.io/ansible/role/d/16931) [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org) ![GitHub](https://img.shields.io/github/license/kso512/install-check_mk-client)
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/kso512/install-check_mk-client)](https://github.com/kso512/install-check_mk-client) ![GitHub Release Date](https://img.shields.io/github/release-date/kso512/install-check_mk-client) ![GitHub repo size](https://img.shields.io/github/repo-size/kso512/install-check_mk-client) ![GitHub issues](https://img.shields.io/github/issues-raw/kso512/install-check_mk-client) [![GitHub forks](https://img.shields.io/github/forks/Naereen/StrapDown.js.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/network/)
 
@@ -10,14 +10,12 @@ All tasks are tagged with `install-check-mk-client`.
 
 This role utilizes SSH on Unix-type systems instead of the default port 6556.  This encrypts communications and avoids opening a new port for monitoring and setting up a new service.
 
-Tested with [Travis continuous integration](https://travis-ci.org/) on the following distributions:
+Tested with [Travis continuous integration](https://travis-ci.com/) on the following distributions:
 
-- [CentOS-6](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS6.9)
 - [CentOS-7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
 - [CentOS-8](https://wiki.centos.org/Manuals/ReleaseNotes/CentOSLinux8)
 - [Debian 9 "Stretch"](https://www.debian.org/releases/stretch/)
 - [Debian 10 "Buster"](https://www.debian.org/releases/buster/)
-- [Ubuntu 16.04 LTS "Xenial Xerus"](https://releases.ubuntu.com/xenial/)
 - [Ubuntu 18.04 LTS "Bionic Beaver"](https://releases.ubuntu.com/bionic/)
 - [Ubuntu 20.04 LTS "Focal Fossa"](https://releases.ubuntu.com/focal/)
 
