@@ -408,7 +408,7 @@ run_real_time_checks() {
 }
 
 echo "<<<check_mk>>>"
-echo "Version: 1.6.0p20"
+echo "Version: 1.6.0p21"
 echo "AgentOS: linux"
 echo "Hostname: $(hostname)"
 echo "AgentDirectory: $MK_CONFDIR"
@@ -853,9 +853,6 @@ fi
 
 # Check status of OMD sites and Check_MK Notification spooler
 if inpath omd; then
-    echo '<<<labels:sep(0)>>>'
-    echo '{"cmk/check_mk_server": "yes"}'
-
     run_cached -s omd_status 60 "omd status --bare --auto || true"
     echo '<<<mknotifyd:sep(0)>>>'
     date +%s
