@@ -15,9 +15,8 @@
     - install-check-mk-client
 - name: Generate configuration file from template | WIN_TEMPLATE
   win_template:
-    # the ini file is deprecated but will be autoconverted
     src: "{{ install_check_mk_client_win_config }}"
-    dest: "{{ install_check_mk_client_win_folder }}check_mk.ini"
+    dest: "{{ install_check_mk_client_win_folder }}check_mk.user.yml"
   notify: Restart Windows agent service
   tags:
     - install-check-mk-client

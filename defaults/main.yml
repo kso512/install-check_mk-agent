@@ -24,7 +24,7 @@ install_check_mk_client_plugins:
 install_check_mk_client_freebsd_plugins: []
 install_check_mk_client_win_tmp: "c:\\{{ install_check_mk_client_win_filename }}"
 install_check_mk_client_win_filename: check_mk_agent.msi
-install_check_mk_client_win_config: check_mk.example.ini.j2
+install_check_mk_client_win_config: check_mk.user.yml.j2
 install_check_mk_client_win_folder: C:\Program Files (x86)\checkmk\
 install_check_mk_client_win_data_folder: C:\ProgramData\checkmk\agent\
 install_check_mk_client_win_plugins:
