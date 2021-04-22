@@ -136,7 +136,12 @@ fi
 
 if [ "$ENCRYPTED" == "yes" ]; then
     OPENSSL_VERSION=$(openssl version | awk '{print $2}' | awk -F . '{print (($1 * 100) + $2) * 100+ $3}')
-    if [ $OPENSSL_VERSION -ge 10000 ]; then
+    if [ "$OPENSSL_VERSION" -ge 10101 ]; then
+        echo -n "03"
+        # Depending on the Checkmk version, a key of proper length (256 bits) is provided. However, we
+        # always use key derivation here, as this is suitable for passwords of all lengths.
+        exec > >(openssl enc -aes-256-cbc -md sha256 -iter 10000 -k "$PASSPHRASE")
+    elif [ "$OPENSSL_VERSION" -ge 10000 ]; then
         echo -n "02"
         exec > >(openssl enc -aes-256-cbc -md sha256 -k "$PASSPHRASE" -nosalt)
     else
@@ -153,7 +158,7 @@ fi
 
 section_checkmk() {
     echo "<<<check_mk>>>"
-    echo "Version: 2.0.0p1"
+    echo "Version: 2.0.0p3"
     echo "AgentOS: linux"
     echo "Hostname: $(hostname)"
     echo "AgentDirectory: $MK_CONFDIR"
