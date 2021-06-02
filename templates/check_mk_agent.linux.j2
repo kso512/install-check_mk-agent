@@ -18,6 +18,8 @@ export MK_VARDIR="{{ install_check_mk_client_home }}"
 # is being sent only once to each remote host.
 if [ "$REMOTE_HOST" ]; then
     export REMOTE=$REMOTE_HOST
+elif [ "$REMOTE_ADDR" ]; then
+    export REMOTE=$REMOTE_ADDR
 elif [ "$SSH_CLIENT" ]; then
     export REMOTE=${SSH_CLIENT%% *}
 fi
@@ -158,7 +160,7 @@ fi
 
 section_checkmk() {
     echo "<<<check_mk>>>"
-    echo "Version: 2.0.0p3"
+    echo "Version: 2.0.0p5"
     echo "AgentOS: linux"
     echo "Hostname: $(hostname)"
     echo "AgentDirectory: $MK_CONFDIR"
@@ -1044,6 +1046,8 @@ run_liveupdate() {
     if [ -e "$MK_CONFDIR/real_time_checks.cfg" ]; then
         if [ -z "$REMOTE" ]; then
             echo "ERROR: \$REMOTE not specified. Not starting Real-Time Checks." >&2
+        elif [ -z "$RTC_SECRET" ] && [ -z "$PASSPHRASE" ] && [ "$ENCRYPTED_RT" != "no" ]; then
+            echo "ERROR: Missing secret for encryping Real-Time Check data,  while encryption is requested. Not starting Real-Time Checks." >&2
         elif ! inpath openssl; then
             echo "ERROR: openssl command is missing. Not starting Real-Time Checks." >&2
         else
@@ -1652,7 +1656,7 @@ run_liveupdate
 run_remote_plugin
 
 # MK's runas Executor
-run_mrpe
+run_runas_executor
 
 # Local checks
 run_local_checks
