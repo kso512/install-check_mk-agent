@@ -1,6 +1,6 @@
 # [install-check_mk-client](https://galaxy.ansible.com/kso512/install-check_mk-client/)
 
-[![Build Status](https://travis-ci.com/kso512/install-check_mk-client.svg?branch=master)](https://travis-ci.com/kso512/install-check_mk-client) ![Ansible Role](https://img.shields.io/ansible/role/d/16931) [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org) ![GitHub](https://img.shields.io/github/license/kso512/install-check_mk-client)
+![Ansible Role](https://img.shields.io/ansible/role/d/16931) [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org) ![GitHub](https://img.shields.io/github/license/kso512/install-check_mk-client)
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/kso512/install-check_mk-client)](https://github.com/kso512/install-check_mk-client) ![GitHub Release Date](https://img.shields.io/github/release-date/kso512/install-check_mk-client) ![GitHub repo size](https://img.shields.io/github/repo-size/kso512/install-check_mk-client) ![GitHub issues](https://img.shields.io/github/issues-raw/kso512/install-check_mk-client) [![GitHub forks](https://img.shields.io/github/forks/Naereen/StrapDown.js.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/network/)
 
@@ -10,7 +10,7 @@ All tasks are tagged with `install-check-mk-client`.
 
 This role utilizes SSH on Unix-type systems instead of the default port 6556.  This encrypts communications and avoids opening a new port for monitoring and setting up a new service.
 
-Tested with [Travis continuous integration](https://travis-ci.com/) on the following distributions:
+Tested manually with the [Ansible Role Test Shim Script from Jeff Geerling](https://gist.github.com/geerlingguy/73ef1e5ee45d8694570f334be385e181) on the following distributions:
 
 - [CentOS-7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
 - [CentOS-8](https://wiki.centos.org/Manuals/ReleaseNotes/CentOSLinux8)
