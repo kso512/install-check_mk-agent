@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
 
-{{ install_check_mk_client_user }} ALL = NOPASSWD: {{ install_check_mk_client_home }}/check_mk_agent
-Defaults:{{ install_check_mk_client_user }} !requiretty
+{{ install_check_mk_agent_user }} ALL = NOPASSWD: {{ install_check_mk_agent_home }}/check_mk_agent
+Defaults:{{ install_check_mk_agent_user }} !requiretty
