@@ -10,7 +10,7 @@
 
 # Disable unused variable error (needed to keep track of version)
 # shellcheck disable=SC2034
-CMK_VERSION="2.0.0p8"
+CMK_VERSION="2.0.0p9"
 
 # Function to replace "if type [somecmd]" idiom
 # 'command -v' tends to be more robust vs 'which' and 'type' based tests
@@ -117,7 +117,7 @@ if which smartctl > /dev/null 2>&1 ; then
             continue
         fi
 
-                # Exclude everything which can read a CD
+        # Exclude everything which can read a CD
         if [ "$INPATH_UDEVADM" == "udevadm_present" ] && (udevadm info /dev/"$N" | grep -Fxq 'E: ID_CDROM_CD=1'); then
             continue
         fi
