@@ -1,8 +1,6 @@
 # [install-check_mk-agent](https://galaxy.ansible.com/kso512/install-check_mk-agent/)
 
-![Ansible Role](https://img.shields.io/ansible/role/d/16931) [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org) ![GitHub](https://img.shields.io/github/license/kso512/install-check_mk-agent)
-
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/kso512/install-check_mk-agent)](https://github.com/kso512/install-check_mk-agent) ![GitHub Release Date](https://img.shields.io/github/release-date/kso512/install-check_mk-agent) ![GitHub repo size](https://img.shields.io/github/repo-size/kso512/install-check_mk-agent) ![GitHub issues](https://img.shields.io/github/issues-raw/kso512/install-check_mk-agent) [![GitHub forks](https://img.shields.io/github/forks/Naereen/StrapDown.js.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/network/)
+*This role is deprecated in favor of [checkmk_agent](https://github.com/kso512/checkmk_agent) which is a rebuild using better practices and naming conventions. No further updates will be made to this repository/role.*
 
 An [Ansible](https://www.ansible.com/) [Role](http://docs.ansible.com/ansible/playbooks_roles.html#roles) to install the agent/client for [Check_MK RAW](http://mathias-kettner.com/check_mk_introduction.html).
 
